@@ -28,15 +28,14 @@ def analyze_sentiment():
 
         highlight = highlight.split("[")[0] + highlight.split("")
 
-        
+        # formats review to pass to Google API
         review_doc = language_v1.types.Document(
             content=highlight, type_=language_v1.types.Document.Type.PLAIN_TEXT
         )
-        # Detects the sentiment of the text
+        # gets sentiment analysis
         sentiment = client.analyze_sentiment(
             request={"document": review_doc}
         ).document_sentiment
-
         sentiments.append(sentiment)
 
 
