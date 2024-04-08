@@ -1,15 +1,6 @@
-
-#architecture {
-  position: absolute;
-  z-index: 2;
-  width: 25%;
-  height: 25%;
-  left: 10%;
-  top: 10%;
-}
-
 /*background - i like the color more than white so i'm leaving it for now*/
-.App-header {
+.App-background {
+  z-index: -1;
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -20,3 +11,42 @@
   color: white;
 }
 
+.input-area-container{
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  z-index: 1;
+}
+
+.response-display{
+  position: absolute;
+  top: 40%;
+  left: 20%;
+  z-index: 1;
+  width: 30%;
+  height: 15%;
+  background-color: white;
+
+}
+
+
+
+
+
+
+
+/*   =============================== OLD ====================================== */
+/* #pageHeader{
+  position: relative;
+  z-index: 2;
+  top: 5%;
+  left: 5%;
+} */
+/* #submit-button{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  color: red;
+} */
