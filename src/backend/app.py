@@ -1,9 +1,33 @@
 import json, requests
 from flask import Flask, jsonify, request
 from google.cloud import language_v1
+from dotenv import load_dotenv
+import os
 
 client = language_v1.LanguageServiceClient()
 app = Flask(__name__)
+api_key = ""
+
+@app.route("/")
+def hello_world():
+    return "Hello from Flask!"
+
+@app.route('/reviews')
+def get_reviews():
+    place_id = request.args.get('place_id')
+    url = f"https://maps.googleapis.com/maps/api/place/details/json?placeid={place_id}&key={api_key}"
+
+    headers = {
+        "accept": "application/json",
+    }
+
+    res = requests.get(url, headers=headers)
+    json = res.json()
+    data = json["result"]["reviews"]
+    avg_rating = 0
+    for i, review in enumerate(data):
+        avg_rating = avg_rating + int(review['rating'])
+    return f"Average rating was {avg_rating / 5}"
 
 @app.route('/analyze')
 def analyze_sentiment():
@@ -39,3 +63,7 @@ def analyze_sentiment():
         sentiments.append(sentiment)
 
 
+if __name__ == "__main__":
+    load_dotenv()
+    api_key = os.getenv("PLACES_API_KEY")
+    app.run(debug=True)
