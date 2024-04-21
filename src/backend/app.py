@@ -70,8 +70,6 @@ def get_reviews():
     avg_rating /= 5
     emoji = emojis["neutral"] if avg_sentiment == 0.0 else (emojis["positive"] if avg_sentiment > 0 else emojis["negative"])
 
-    get_place_id("Forbes Gyro in Pittsburgh PA")
-
     return jsonify({
         "emoji": emoji,
         "avg_sentiment": avg_sentiment,
