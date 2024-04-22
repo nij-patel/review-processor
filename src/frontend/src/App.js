@@ -49,9 +49,13 @@ function App() {
 
   return (
     <div className="MainApp">
+      <header className="App-header">
+        <h1>Review Sentiment Analyzer</h1>
+        <p>Enter the Yelp link below to get sentiment analysis on reviews.</p>
+      </header>
       
       {/*background*/}
-      <div className="App-background"></div>
+      
       
       {/*input area, label, and button*/}
       <div className="input-area-container">

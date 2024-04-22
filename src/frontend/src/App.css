@@ -1,30 +1,92 @@
-/*background - i like the color more than white so i'm leaving it for now*/
-.App-background {
-  z-index: -1;
-  background-color: #282c34;
-  min-height: 100vh;
+/* Reset some default styling */
+body, h1, p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply a modern background */
+body {
+  background: #232222; /* Dark background for a slick look */
+  color: white;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.MainApp {
+  width: 90%;
+  max-width: 800px;
+}
+
+.App-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.App-header h1 {
+  font-size: 2.5rem;
+  color: #0d6efd; /* A blue color for a modern look */
+}
+
+.App-header p {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #6c757d; /* Gray for subtext */
+}
+
+.input-area-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+#link-input-space {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+#submit-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #0d6efd;
   color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 18px; 
+  border-radius: 8px; 
 }
 
-.input-area-container{
-  position: absolute;
-  top: 20%;
-  left: 20%;
-  z-index: 1;
+#submit-button:hover {
+  background-color: #0056b3;
 }
 
-.response-display{
-  position: absolute;
-  top: 40%;
-  left: 20%;
-  z-index: 1;
-  width: 30%;
-  height: 15%;
-  background-color: white;
+.response-display {
+  background: white;
+  color: black;
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
 
+/* Responsive design */
+@media (max-width: 768px) {
+  .MainApp {
+    width: 95%;
+  }
+
+  #link-input-space, #submit-button {
+    width: auto;
+  }
 }
