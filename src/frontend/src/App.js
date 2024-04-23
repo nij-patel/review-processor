@@ -40,10 +40,32 @@ function App() {
     updateResponseDisplay(response);
   };
   
-  /**Fills in summary from backend onto the display */
+  /**updates display with the data from the api
+   * 
+   * @param {JSON} response 
+   */
   const updateResponseDisplay = (response) => {
+    /* get  response from backend and update display
+    *
+    *               TODO MAKE THIS THE ACTUAL RESPONSE
+    * *
+    * ================================================*/
+    let default_response = 
+    {
+      "avg_rating": 4.6,
+      "avg_sentiment": 3.29899999499321,
+      "emoji": "😀",
+      "place": "Shady Grove",
+      "reviews": []
+    }
+    let display = `${default_response["emoji"]}\n\n This place, ${default_response["place"]}, received an average rating of ${default_response["avg_rating"]}
+    and an average sentiment of ${default_response["avg_sentiment"]}. Here are the reviews: \n`;
+    for(let review of default_response["reviews"]){
+      display += review;
+      display += '\n';
+    }
 
-    document.getElementsByClassName("response-display")[0].textContent = response;
+    document.getElementsByClassName("response-display")[0].textContent = display;
 
   }
 
