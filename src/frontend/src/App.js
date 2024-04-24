@@ -24,19 +24,15 @@ function App() {
 
   /**Sends requests to APIs to handle the backend work, and displays the response */
   const getReviews = () => {
-    /* send request to backend to use yelp api, NLP etc 
-    *
-    *               TODO CONFIGURE WITH BACKEND 
-    * *
-    * ================================================*/
+    let response;
+    fetch(`/reviews?place_search="${providedLink}"`)
+    .then(response => response.json())
+    .then(data => {
+      response = data; 
+    })
+    .catch(error => console.error('Error:', error));
     console.log("getting reviews for ", providedLink);
 
-    /* get  response from backend and update display
-    *
-    *               TODO CONFIGURE WITH BACKEND 
-    * *
-    * ================================================*/
-    let response = "(DEFAULT RESPONSE): overall everyone hates this "
     updateResponseDisplay(response);
   };
   
@@ -45,22 +41,10 @@ function App() {
    * @param {JSON} response 
    */
   const updateResponseDisplay = (response) => {
-    /* get  response from backend and update display
-    *
-    *               TODO MAKE THIS THE ACTUAL RESPONSE
-    * *
-    * ================================================*/
-    let default_response = 
-    {
-      "avg_rating": 4.6,
-      "avg_sentiment": 3.29899999499321,
-      "emoji": "😀",
-      "place": "Shady Grove",
-      "reviews": []
-    }
-    let display = `${default_response["emoji"]}\n\n This place, ${default_response["place"]}, received an average rating of ${default_response["avg_rating"]}
-    and an average sentiment of ${default_response["avg_sentiment"]}. Here are the reviews: \n`;
-    for(let review of default_response["reviews"]){
+
+    let display = `${response["emoji"]}\n\n This place, ${response["place"]}, received an average rating of ${response["avg_rating"]}
+    and an average sentiment of ${response["avg_sentiment"]}. Here are the reviews: \n`;
+    for(let review of response["reviews"]){
       display += review;
       display += '\n';
     }
