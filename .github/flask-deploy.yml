@@ -1,0 +1,28 @@
+name: Deploy Flask API to Google Cloud Run
+
+on:
+  push:
+    branches:
+      - main  # Adjust this if you use a different branch for your production deployments
+    paths:
+      - 'src/backend/**'  # Adjust this to the path where your Flask code is located
+      - '.github/workflows/flask-deploy.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }} # modify this
+          service_account_key: ${{ secrets.GCP_SA_KEY }} # modify 
+          export_default_credentials: true
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy flask-api --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/flask-app --platform managed --region us-central1 --allow-unauthenticated  # modify 
