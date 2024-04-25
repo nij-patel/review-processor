@@ -20,6 +20,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
           project_id: review-processor-419322
+          service_account_key: 908706902641-compute@developer.gserviceaccount.com
           export_default_credentials: true
 
       - name: Deploy to Cloud Run
