@@ -5,7 +5,7 @@ on:
     branches:
       - main  # Adjust this if you use a different branch for your production deployments
     paths:
-      - 'src/backend/**'  # Adjust this to the path where your Flask code is located
+      - 'src/backend/**' 
       - '.github/workflows/flask-deploy.yml'
 
 jobs:
@@ -19,8 +19,7 @@ jobs:
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }} # modify this
-          service_account_key: ${{ secrets.GCP_SA_KEY }} # modify 
+          project_id: review-processor-419322
           export_default_credentials: true
 
       - name: Deploy to Cloud Run
