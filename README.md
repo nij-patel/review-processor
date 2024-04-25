@@ -5,8 +5,6 @@ Authors: Daniel Pollock, Nij Patel, Aidan Dougherty, Danish Ghumman
 
 ### How to Use
 
-Search enter the name of any restaurant and the app will summarize general sentiment based on the 5 most recent reviews.
+Enter the name of any restaurant and the app will summarize general sentiment based on the 5 most recent reviews.
 
-
-### How to Run
 
