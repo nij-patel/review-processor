@@ -1,0 +1,37 @@
+name: Deploy React App to Google Compute Engine
+
+on:
+  push:
+    branches:
+      - main  # Adjust this if you use a different branch for production deployments
+    paths:
+      - 'src/frontend/**'  # Adjust this to the path where your React code is located
+      - '.github/workflows/react-deploy.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }} # modify 
+          service_account_key: ${{ secrets.GCP_SA_KEY }} # modify 
+          export_default_credentials: true
+
+      - name: SSH and Deploy on Compute Engine
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VM_IP }}
+          username: 'your-vm-username'  # Replace with actual VM username
+          key: ${{ secrets.VM_SSH_KEY }} # modify 
+          script: |
+            docker pull gcr.io/${{ secrets.GCP_PROJECT_ID }}/react-app:latest
+            docker stop react-app || true
+            docker rm react-app || true
+            docker run -d --name react-app -p 80:80 gcr.io/${{ secrets.GCP_PROJECT_ID }}/react-app:latest
+
