@@ -1,12 +1,14 @@
 import requests
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from google.cloud import language_v2
 from dotenv import load_dotenv
 import os
 
 client = language_v2.LanguageServiceClient()
 app = Flask(__name__)
-api_key = ""
+CORS(app)
+api_key = os.environ.get("PLACES_API_KEY")
 
 emojis = {
     "neutral": "😕",
@@ -17,6 +19,10 @@ emojis = {
 @app.route("/")
 def hello_world():
     return "Hello from Flask!"
+
+@app.route('/test')
+def test_fn():
+    return api_key
 
 def get_sentiment(s: str):
     c = language_v2.LanguageServiceClient()
@@ -42,6 +48,9 @@ def get_place_id(n: str):
     if len(json['results']) == 0:
         return ""
     return json['results'][0]['place_id']
+
+
+    
 
 
 @app.route('/reviews')
@@ -81,4 +90,5 @@ def get_reviews():
 if __name__ == "__main__":
     load_dotenv()
     api_key = os.getenv("PLACES_API_KEY")
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+    # app.run(host='0.0.0.0', port=105)

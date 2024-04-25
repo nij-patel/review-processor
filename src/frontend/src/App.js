@@ -16,7 +16,7 @@ function App() {
    * If input area is selected, do not linebreak 
    */
   const handleKeyDown = (e) => {
-    if (e.key === "Enter"){
+    if (e.key === "Enter") {
       e.preventDefault();
       getReviews();
     }
@@ -25,17 +25,20 @@ function App() {
   /**Sends requests to APIs to handle the backend work, and displays the response */
   const getReviews = () => {
     let response;
-    fetch(`/reviews?place_search="${providedLink}"`)
-    .then(response => response.json())
-    .then(data => {
-      response = data; 
-    })
-    .catch(error => console.error('Error:', error));
+    fetch(`https://review-analysis-u2qniupqiq-uk.a.run.app/reviews?place_search="${providedLink}"`)
+      .then(response => response.json())
+      .then(data => {
+        response = data;
+        console.log(response)
+        updateResponseDisplay(response);
+      })
+      .catch(error => console.error('Error:', error));
     console.log("getting reviews for ", providedLink);
 
-    updateResponseDisplay(response);
+
+
   };
-  
+
   /**updates display with the data from the api
    * 
    * @param {JSON} response 
@@ -43,13 +46,13 @@ function App() {
   const updateResponseDisplay = (response) => {
 
     let display = `${response["emoji"]}\n\n This place, ${response["place"]}, received an average rating of ${response["avg_rating"]}
-    and an average sentiment of ${response["avg_sentiment"]}. Here are the reviews: \n`;
-    for(let review of response["reviews"]){
+    and an average sentiment of ${response["avg_sentiment"]}. Here are the reviews: <br><br>`;
+    for (let review of response["reviews"]) {
       display += review;
-      display += '\n';
+      display += '<br><br>';
     }
 
-    document.getElementsByClassName("response-display")[0].textContent = display;
+    document.getElementsByClassName("response-display")[0].innerHTML = display;
 
   }
 
@@ -59,31 +62,31 @@ function App() {
         <h1>Review Sentiment Analyzer</h1>
         <p>Enter the Yelp link below to get sentiment analysis on reviews.</p>
       </header>
-      
+
       {/*background*/}
-      
-      
+
+
       {/*input area, label, and button*/}
       <div className="input-area-container">
-        <label style={{color: 'white'}} htmlFor="link-input-space">Enter your link here:</label>
+        <label style={{ color: 'white' }} htmlFor="link-input-space">Enter your link here:</label>
         <br></br>
-        
-        <textarea 
-          value={providedLink} 
-          onChange={(e) => setProvidedLink(e.target.value)} 
+
+        <textarea
+          value={providedLink}
+          onChange={(e) => setProvidedLink(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder = "enter text here..."
-          id="link-input-space" 
-          name="link-input-space" 
-          rows="2" 
-          cols="50"/>
+          placeholder="enter text here..."
+          id="link-input-space"
+          name="link-input-space"
+          rows="2"
+          cols="50" />
         <br></br>
-        
-        <button id="submit-button" onClick = {getReviews}>Get reviews</button>
+
+        <button id="submit-button" onClick={getReviews}>Get reviews</button>
       </div>
 
       {/*response display*/}
-      <div className = "response-display"></div>
+      <div className="response-display"></div>
 
     </div>
 
